@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tasky</string>
+    <string name="splash_text">things are being done.</string>
+    <string name="author_name">Przemyslaw Pomiechowski</string>
 </resources>
