@@ -10,7 +10,7 @@ import android.view.Window;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private final int SPLASH_SCREEN_DURATION = 3000;
+    private final int SPLASH_SCREEN_DURATION = 300;
 
     private Window window;
 
@@ -28,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(SplashScreen.this,
-                        MainActivity.class);
+                        NavigationActivity.class);
                 SplashScreen.this.startActivity(intent);
                 SplashScreen.this.finish();
             }
