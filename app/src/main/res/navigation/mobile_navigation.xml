@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_to_do">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.pomiecho.tasky.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_to_do"
+        android:name="com.pomiecho.tasky.ui.home.ToDoFragment"
+        android:label="@string/menu_to_do"
+        tools:layout="@layout/fragment_to_do" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.pomiecho.tasky.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_in_progress"
+        android:name="com.pomiecho.tasky.ui.gallery.InProgressFragment"
+        android:label="@string/menu_in_progress"
+        tools:layout="@layout/fragment_in_progress" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.pomiecho.tasky.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_done"
+        android:name="com.pomiecho.tasky.ui.slideshow.DoneFragment"
+        android:label="@string/menu_done"
+        tools:layout="@layout/fragment_done" />
 </navigation>
