@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pomiecho.tasky.R;
+import com.pomiecho.tasky.SQLiteHandler;
 import com.pomiecho.tasky.adapters.TaskAdapter;
 import com.pomiecho.tasky.objects.Task;
 
@@ -25,6 +26,7 @@ import java.util.List;
 
 public class ToDoFragment extends Fragment {
 
+    public SQLiteHandler db;
     private ToDoModel toDoModel;
     private RecyclerView recyclerView;
     private TaskAdapter adapter;
@@ -34,7 +36,7 @@ public class ToDoFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         toDoModel = new ViewModelProvider(this).get(ToDoModel.class);
         View root = inflater.inflate(R.layout.fragment_to_do, container, false);
-
+        db = new SQLiteHandler(getActivity());
         recyclerView = root.findViewById(R.id.recyclerViewToDo);
         taskList = new ArrayList<>();
         adapter = new TaskAdapter(getActivity(), taskList);
@@ -46,28 +48,15 @@ public class ToDoFragment extends Fragment {
 
         prepareTasks();
 
-        toDoModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-            }
-        });
+        toDoModel.getText().observe(getViewLifecycleOwner(), s -> { });
 
         return root;
     }
 
     private void prepareTasks() {
-        Task a = new Task("Lorem ipsum", "Dolor sit amet..");
-        taskList.add(a);
-
-        Task b = new Task("Lorem ipsum 2", "Dolor sit amet..");
-        taskList.add(b);
-
-        Task c = new Task("Lorem ipsum 3", "Dolor sit amet..");
-        taskList.add(c);
-
-        Task d = new Task("Lorem ipsum 4", "Dolor sit amet..");
-        taskList.add(d);
-
+        for(Task task : db.getTasks(1)) {
+            taskList.add(task);
+        }
         adapter.notifyDataSetChanged();
     }
 
