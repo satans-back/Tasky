@@ -1,4 +1,4 @@
-package com.pomiecho.tasky.ui.slideshow;
+package com.pomiecho.tasky.ui.inprogress;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.pomiecho.tasky.R;
 
-public class DoneFragment extends Fragment {
+public class InProgressFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private InProgressModel inProgressModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_done, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        inProgressModel =
+                new ViewModelProvider(this).get(InProgressModel.class);
+        View root = inflater.inflate(R.layout.fragment_in_progress, container, false);
+        final TextView textView = root.findViewById(R.id.text_gallery);
+        inProgressModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

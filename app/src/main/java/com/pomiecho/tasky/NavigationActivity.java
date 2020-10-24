@@ -49,8 +49,12 @@ public class NavigationActivity extends AppCompatActivity {
                 R.id.nav_to_do, R.id.nav_in_progress, R.id.nav_done)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavController navController = Navigation.findNavController(
+                this,
+                R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this,
+                navController,
+                mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
         setCurrentDateOnNavigationView(navigationView.getHeaderView(0),
@@ -60,7 +64,8 @@ public class NavigationActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavController navController = Navigation.findNavController(this,
+                R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
@@ -79,6 +84,7 @@ public class NavigationActivity extends AppCompatActivity {
 
     public String getCurrentDate() {
         Date currentDay = Calendar.getInstance().getTime();
-        return new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH).format(currentDay.getTime());
+        return new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)
+                .format(currentDay.getTime());
     }
 }

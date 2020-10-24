@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_to_do"
-        android:name="com.pomiecho.tasky.ui.home.ToDoFragment"
+        android:name="com.pomiecho.tasky.ui.todo.ToDoFragment"
         android:label="@string/menu_to_do"
         tools:layout="@layout/fragment_to_do" />
 
     <fragment
         android:id="@+id/nav_in_progress"
-        android:name="com.pomiecho.tasky.ui.gallery.InProgressFragment"
+        android:name="com.pomiecho.tasky.ui.inprogress.InProgressFragment"
         android:label="@string/menu_in_progress"
         tools:layout="@layout/fragment_in_progress" />
 
     <fragment
         android:id="@+id/nav_done"
-        android:name="com.pomiecho.tasky.ui.slideshow.DoneFragment"
+        android:name="com.pomiecho.tasky.ui.done.DoneFragment"
         android:label="@string/menu_done"
         tools:layout="@layout/fragment_done" />
 </navigation>
