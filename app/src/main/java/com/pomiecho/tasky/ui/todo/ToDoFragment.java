@@ -46,7 +46,11 @@ public class ToDoFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        prepareTasks();
+        //prepareTasks();
+
+        for(Task task : db.getTasks(1)) {
+            taskList.add(task);
+        }
 
         toDoModel.getText().observe(getViewLifecycleOwner(), s -> { });
 
@@ -54,6 +58,14 @@ public class ToDoFragment extends Fragment {
     }
 
     private void prepareTasks() {
+        db.insertTask("First to do task", "Lorem ipsum dolor sit amet");
+        db.insertTask("Second to do task", "Lorem ipsum dolor sit amet");
+        db.insertTask("Third to do task", "Lorem ipsum dolor sit amet");
+        db.insertTask("First in progress task", "Lorem ipsum dolor sit amet");
+        db.insertTask("Second in progress task", "Lorem ipsum dolor sit amet");
+        db.insertTask("First in done", "Lorem ipsum dolor sit amet");
+
+
         for(Task task : db.getTasks(1)) {
             taskList.add(task);
         }

@@ -16,17 +16,19 @@ import java.util.List;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "tasks_db";
+    public static int DATABASE_VERSION = 3;
+    public static final String DATABASE_NAME = "tasks_db.db";
 
 
     public SQLiteHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        Log.d("SQLITEHANDLER", "Conctructor executed");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Task.CREATE_TABLE);
+        Log.d("SQLITEHANDLER", "onCreate executed");
     }
 
     @Override
@@ -36,6 +38,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     public long insertTask(String title, String description){
+
+        Log.d("SQLITEHANDLER", "insertTask executed");
+
         SQLiteDatabase db = getWritableDatabase();
         ContentValues tasks = new ContentValues();
         tasks.put(Task.TITLE, title);
@@ -43,8 +48,27 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         tasks.put(Task.STATE, 1);
 
         long id = db.insert(Task.TABLE_NAME, null, tasks);
+
         db.close();
         return id;
+    }
+
+    public int updateTask(Task task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(Task.TITLE, getTask(task.getId()).getTitle());
+        values.put(Task.TITLE, getTask(task.getId()).getDescription());
+
+        return db.update(Task.TABLE_NAME, values, Task.ID + " = ?",
+                new String[]{String.valueOf(task.getId())});
+    }
+
+    public void deleteTask(Task task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Task.TABLE_NAME, Task.ID + " = ?",
+                new String[]{String.valueOf(task.getId())});
+        db.close();
     }
 
     public Task getTask(long id) {
