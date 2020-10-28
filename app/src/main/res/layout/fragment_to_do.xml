@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.todo.ToDoFragment">
+    tools:context=".ui.todo.ToDoFragment"
+    android:id="@+id/to_do_fragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewToDo"
