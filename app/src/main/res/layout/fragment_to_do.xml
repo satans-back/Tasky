@@ -8,7 +8,7 @@
     android:id="@+id/to_do_fragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewToDo"
+        android:id="@+id/recycler_to_do"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="231dp"

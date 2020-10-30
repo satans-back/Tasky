@@ -27,5 +27,10 @@
         android:id="@+id/nav_task"
         android:name="com.pomiecho.tasky.ui.task.TaskFragment"
         android:label="@string/menu_task"
-        tools:layout="@layout/fragment_task" />
+        tools:layout="@layout/fragment_task" >
+        <action
+            android:id="@+id/action_nav_task_to_nav_to_do"
+            app:destination="@id/nav_to_do" />
+    </fragment>
+
 </navigation>

@@ -1,18 +1,11 @@
 package com.pomiecho.tasky;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
-import com.pomiecho.tasky.ui.todo.ToDoFragment;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,6 +13,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,6 +28,7 @@ public class NavigationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_navigation);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -64,6 +60,16 @@ public class NavigationActivity extends AppCompatActivity {
                 R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void buttonClicked(@NotNull View v) {
+        switch(v.getId()) {
+            case R.id.frag_cancel_button:
+            case R.id.frag_apply_create_button: {
+                Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
+                break;
+            }
+        }
     }
 
     public void setCurrentDateOnNavigationView(View navigationView, String day, String date) {

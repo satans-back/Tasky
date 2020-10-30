@@ -13,7 +13,7 @@ import com.pomiecho.tasky.objects.Task;
 
 import java.util.List;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
+public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<Task> taskList;
@@ -24,13 +24,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
         public MyViewHolder(View view) {
             super(view);
-            title = view.findViewById(R.id.taskTitle);
-            description = view.findViewById(R.id.taskDescription);
+            title = view.findViewById(R.id.task_title);
+            description = view.findViewById(R.id.task_desc);
         }
     }
 
 
-    public TaskAdapter(Context mContext, List<Task> taskList) {
+    public ToDoAdapter(Context mContext, List<Task> taskList) {
         this.taskList = taskList;
     }
 

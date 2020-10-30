@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.done.DoneFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_done"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="296dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,12 +8,10 @@ public class Task {
     public static final String DESCRIPTION = "DESCRIPTION";
     public static final String STATE = "STATE";
 
-    private enum State {TODO, INPROGRESS, DONE}
-
     private int id;
     private String title;
     private String description;
-    private State state;
+    private int state;
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
@@ -26,14 +24,14 @@ public class Task {
     public Task() {
         this.title = "Lorem ipsum";
         this.description = "Dolor sit amet";
-        this.state = State.TODO;
+        this.state = 1;
     }
 
-    public Task(int id, String title, String description) {
+    public Task(int id, String title, String description, int state) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.state = State.TODO;
+        this.state = state;
     }
 
     public int getId() { return this.id; }
@@ -46,7 +44,7 @@ public class Task {
         return this.description;
     }
 
-    public State getState() {return this.state; }
+    public int getState() {return this.state; }
 
     public void setId(int id) { this.id = id; }
 
@@ -58,6 +56,6 @@ public class Task {
         this.description = description;
     }
 
-    public void setState(State state) { this.state = state; }
+    public void setState(int state) { this.state = state; }
 
 }

@@ -49,32 +49,33 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         long id = db.insert(Task.TABLE_NAME, null, tasks);
 
-        db.close();
         return id;
     }
 
-    public int updateTask(Task task) {
+    public boolean updateTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(Task.TITLE, getTask(task.getId()).getTitle());
-        values.put(Task.TITLE, getTask(task.getId()).getDescription());
+        values.put(Task.DESCRIPTION, getTask(task.getId()).getDescription());
+        values.put(Task.STATE, task.getState());
 
-        return db.update(Task.TABLE_NAME, values, Task.ID + " = ?",
+        db.update(Task.TABLE_NAME, values, Task.ID + " = ?",
                 new String[]{String.valueOf(task.getId())});
+
+        return true;
     }
 
     public void deleteTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Task.TABLE_NAME, Task.ID + " = ?",
                 new String[]{String.valueOf(task.getId())});
-        db.close();
     }
 
     public Task getTask(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(Task.TABLE_NAME,
-                new String[]{Task.ID, Task.TITLE, Task.DESCRIPTION},
+                new String[]{Task.ID, Task.TITLE, Task.DESCRIPTION, Task.STATE},
                 Task.ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
@@ -83,20 +84,22 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Task task = new Task(
                 cursor.getInt(cursor.getColumnIndex(Task.ID)),
                 cursor.getString(cursor.getColumnIndex(Task.TITLE)),
-                cursor.getString(cursor.getColumnIndex(Task.DESCRIPTION))
+                cursor.getString(cursor.getColumnIndex(Task.DESCRIPTION)),
+                cursor.getInt(cursor.getColumnIndex(Task.STATE))
         );
 
         cursor.close();
-        db.close();
         return task;
     }
 
     public List<Task> getTasks(int state) {
         List<Task> tasks = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + Task.TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.query(Task.TABLE_NAME,
+                new String[]{Task.ID, Task.TITLE, Task.DESCRIPTION},
+                Task.STATE + "=?",
+                new String[]{String.valueOf(state)}, null, null, null, null);
 
         if(cursor.moveToFirst()) {
             do {
@@ -104,12 +107,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 task.setId(cursor.getInt(cursor.getColumnIndex(Task.ID)));
                 task.setTitle(cursor.getString(cursor.getColumnIndex(Task.TITLE)));
                 task.setDescription(cursor.getString(cursor.getColumnIndex(Task.DESCRIPTION)));
-
+                task.setState(cursor.getInt(cursor.getColumnIndex(Task.STATE)));
                 tasks.add(task);
             } while (cursor.moveToNext());
         }
-
-        db.close();
         return tasks;
     }
 
@@ -120,8 +121,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         int count = cursor.getCount();
         cursor.close();
-        db.close();
         return count;
+    }
 
+    public void clearTable() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("DELETE FROM " + Task.TABLE_NAME);
     }
 }
