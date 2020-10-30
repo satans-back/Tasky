@@ -62,16 +62,6 @@ public class NavigationActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void buttonClicked(@NotNull View v) {
-        switch(v.getId()) {
-            case R.id.frag_cancel_button:
-            case R.id.frag_apply_create_button: {
-                Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
-                break;
-            }
-        }
-    }
-
     public void setCurrentDateOnNavigationView(View navigationView, String day, String date) {
         TextView dayTextView = (TextView) navigationView.findViewById(R.id.dayTextView);
         TextView dateTextView = (TextView) navigationView.findViewById(R.id.dateTextView);
