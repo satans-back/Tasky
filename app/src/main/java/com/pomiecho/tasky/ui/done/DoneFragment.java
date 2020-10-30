@@ -48,9 +48,25 @@ public class DoneFragment extends Fragment {
             taskList.add(task);
         }
 
-        adapter.notifyDataSetChanged();
+        prepareTasks();
 
         doneModel.getText().observe(getViewLifecycleOwner(), s -> { });
         return root;
+    }
+
+    public void updateRecyclerView() {
+        adapter.notifyDataSetChanged();
+    }
+
+    public void prepareTasks() {
+        taskList.addAll(db.getTasks(3));
+        updateRecyclerView();
+    }
+
+    public void addDoneTask(Task task) {
+        db.updateTask(task);
+        taskList.clear();
+
+        prepareTasks();
     }
 }

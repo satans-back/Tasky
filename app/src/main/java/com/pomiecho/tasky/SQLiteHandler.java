@@ -36,11 +36,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertTask(String title, String description){
+    public long insertTask(Task task){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues tasks = new ContentValues();
-        tasks.put(Task.TITLE, title);
-        tasks.put(Task.DESCRIPTION, description);
+        tasks.put(Task.TITLE, task.getTitle());
+        tasks.put(Task.DESCRIPTION, task.getDescription());
         tasks.put(Task.STATE, 1);
 
         return db.insert(Task.TABLE_NAME, null, tasks);

@@ -58,4 +58,10 @@ public class Task {
 
     public void setState(int state) { this.state = state; }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Task) return (this.id == ((Task)obj).getId());
+        return false;
+    }
+
 }

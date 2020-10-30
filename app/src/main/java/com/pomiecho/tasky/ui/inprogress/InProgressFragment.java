@@ -43,9 +43,25 @@ public class InProgressFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        adapter.notifyDataSetChanged();
+        prepareTasks();
 
         inProgressModel.getText().observe(getViewLifecycleOwner(), s -> { });
         return root;
+    }
+
+    public void updateRecyclerView() {
+        adapter.notifyDataSetChanged();
+    }
+
+    public void prepareTasks() {
+        taskList.addAll(db.getTasks(2));
+        updateRecyclerView();
+    }
+
+    public void addInProgressTask(Task task) {
+        db.updateTask(task);
+        taskList.clear();
+
+        prepareTasks();
     }
 }

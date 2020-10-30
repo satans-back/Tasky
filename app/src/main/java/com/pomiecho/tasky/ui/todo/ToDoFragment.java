@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -42,10 +43,33 @@ public class ToDoFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        adapter.notifyDataSetChanged();
+        prepareTasks();
 
         toDoModel.getText().observe(getViewLifecycleOwner(), s -> { });
         return root;
+    }
+
+    public void updateRecyclerView() {
+        adapter.notifyDataSetChanged();
+    }
+
+    public void prepareTasks() {
+        taskList.addAll(db.getTasks(1));
+        updateRecyclerView();
+    }
+
+    public void addNewTask(Task task) {
+        db.insertTask(task);
+        taskList.clear();
+
+        prepareTasks();
+    }
+
+    public void addToDoTask(Task task) {
+        db.updateTask(task);
+        taskList.clear();
+
+        prepareTasks();
     }
 
 }

@@ -79,4 +79,16 @@ public class NavigationActivity extends AppCompatActivity {
         return new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)
                 .format(currentDay.getTime());
     }
+
+    public void buttonClicked(@NotNull View v) {
+        switch(v.getId()) {
+            case R.id.frag_cancel_button:
+                Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
+                break;
+            case R.id.frag_apply_create_button: {
+                Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
+                break;
+            }
+        }
+    }
 }
