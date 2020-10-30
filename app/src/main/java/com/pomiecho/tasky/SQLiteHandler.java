@@ -1,5 +1,6 @@
 package com.pomiecho.tasky;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -22,13 +23,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     public SQLiteHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.d("SQLITEHANDLER", "Conctructor executed");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Task.CREATE_TABLE);
-        Log.d("SQLITEHANDLER", "onCreate executed");
     }
 
     @Override
@@ -38,18 +37,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     }
 
     public long insertTask(String title, String description){
-
-        Log.d("SQLITEHANDLER", "insertTask executed");
-
         SQLiteDatabase db = getWritableDatabase();
         ContentValues tasks = new ContentValues();
         tasks.put(Task.TITLE, title);
         tasks.put(Task.DESCRIPTION, description);
         tasks.put(Task.STATE, 1);
 
-        long id = db.insert(Task.TABLE_NAME, null, tasks);
-
-        return id;
+        return db.insert(Task.TABLE_NAME, null, tasks);
     }
 
     public boolean updateTask(Task task) {
@@ -81,6 +75,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
+        assert cursor != null;
         Task task = new Task(
                 cursor.getInt(cursor.getColumnIndex(Task.ID)),
                 cursor.getString(cursor.getColumnIndex(Task.TITLE)),
@@ -96,7 +91,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         List<Task> tasks = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(Task.TABLE_NAME,
+        @SuppressLint("Recycle") Cursor cursor = db.query(Task.TABLE_NAME,
                 new String[]{Task.ID, Task.TITLE, Task.DESCRIPTION},
                 Task.STATE + "=?",
                 new String[]{String.valueOf(state)}, null, null, null, null);

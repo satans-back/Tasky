@@ -63,8 +63,8 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     public void setCurrentDateOnNavigationView(View navigationView, String day, String date) {
-        TextView dayTextView = (TextView) navigationView.findViewById(R.id.dayTextView);
-        TextView dateTextView = (TextView) navigationView.findViewById(R.id.dateTextView);
+        TextView dayTextView = navigationView.findViewById(R.id.dayTextView);
+        TextView dateTextView = navigationView.findViewById(R.id.dateTextView);
         dayTextView.setText(day);
         dateTextView.setText(date);
     }
