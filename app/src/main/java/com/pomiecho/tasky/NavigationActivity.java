@@ -1,11 +1,21 @@
 package com.pomiecho.tasky;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
+import com.pomiecho.tasky.ui.task.TaskFragment;
 
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -80,12 +90,32 @@ public class NavigationActivity extends AppCompatActivity {
                 .format(currentDay.getTime());
     }
 
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager inputManager = (InputMethodManager) activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        View currentFocusedView = activity.getCurrentFocus();
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     public void buttonClicked(@NotNull View v) {
         switch(v.getId()) {
             case R.id.frag_cancel_button:
+                hideKeyboard(this);
                 Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
                 break;
-            case R.id.frag_apply_create_button: {
+            case R.id.frag_create_button: {
+                hideKeyboard(this);
+                TextInputLayout taskTitle =  findViewById(R.id.frag_task_title);
+                TextInputLayout taskDesc = findViewById(R.id.frag_task_desc);
+                if(TextUtils.isEmpty(taskTitle.getEditText().getText())
+                || TextUtils.isEmpty(taskDesc.getEditText().getText())) {
+                    Toast.makeText(getApplicationContext(),
+                            "Task title and description mustn't be empty",Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
                 break;
             }

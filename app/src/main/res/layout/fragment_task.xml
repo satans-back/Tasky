@@ -63,7 +63,7 @@
             android:onClick="buttonClicked"/>
 
         <Button
-            android:id="@+id/frag_apply_create_button"
+            android:id="@+id/frag_create_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="14dp"
             android:layout_height="wrap_content"
@@ -74,5 +74,4 @@
             android:onClick="buttonClicked"/>
 
     </LinearLayout>
-
 </LinearLayout>

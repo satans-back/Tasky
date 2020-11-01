@@ -9,10 +9,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.pomiecho.tasky.R;
@@ -41,7 +43,7 @@ public class TaskFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         cancelButton = getActivity().findViewById(R.id.frag_cancel_button);
-        applyCreateButton = getActivity().findViewById(R.id.frag_apply_create_button);
+        applyCreateButton = getActivity().findViewById(R.id.frag_create_button);
         taskTitleText = getActivity().findViewById(R.id.frag_task_title);
         taskDescriptionText = getActivity().findViewById(R.id.frag_task_desc);
 
@@ -61,7 +63,7 @@ public class TaskFragment extends Fragment {
                 taskDescriptionText.getEditText().getText().clear();
                 Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
                 break;
-            case R.id.frag_apply_create_button: {
+            case R.id.frag_create_button: {
                 Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
                 break;
             }
