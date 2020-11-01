@@ -2,6 +2,8 @@ package com.pomiecho.tasky.ui.task;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,18 +21,16 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pomiecho.tasky.R;
 import com.pomiecho.tasky.SQLiteHandler;
+import com.pomiecho.tasky.interfaces.Communicator;
 import com.pomiecho.tasky.objects.Task;
 
 import org.jetbrains.annotations.NotNull;
 
 public class TaskFragment extends Fragment {
 
-    public SQLiteHandler db;
-    private  Task task;
+    private Task task;
     private TaskModel taskModel;
 
-    private Button cancelButton;
-    private Button applyCreateButton;
     private TextInputLayout taskTitleText;
     private TextInputLayout taskDescriptionText;
 
@@ -42,11 +42,6 @@ public class TaskFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        cancelButton = getActivity().findViewById(R.id.frag_cancel_button);
-        applyCreateButton = getActivity().findViewById(R.id.frag_create_button);
-        taskTitleText = getActivity().findViewById(R.id.frag_task_title);
-        taskDescriptionText = getActivity().findViewById(R.id.frag_task_desc);
-
         return inflater.inflate(R.layout.fragment_task, container, false);
     }
 
@@ -56,18 +51,6 @@ public class TaskFragment extends Fragment {
         taskModel = new ViewModelProvider(this).get(TaskModel.class);
     }
 
-    public void buttonClicked(@NotNull View v) {
-        switch(v.getId()) {
-            case R.id.frag_cancel_button:
-                taskTitleText.getEditText().getText().clear();
-                taskDescriptionText.getEditText().getText().clear();
-                Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
-                break;
-            case R.id.frag_create_button: {
-                Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
-                break;
-            }
-        }
-    }
+    public void buttonClicked(@NotNull View v) { }
 
 }

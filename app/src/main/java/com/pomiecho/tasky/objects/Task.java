@@ -27,6 +27,11 @@ public class Task {
         this.state = 1;
     }
 
+    public Task(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
     public Task(int id, String title, String description, int state) {
         this.id = id;
         this.title = title;

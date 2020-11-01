@@ -75,7 +75,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        assert cursor != null;
         Task task = new Task(
                 cursor.getInt(cursor.getColumnIndex(Task.ID)),
                 cursor.getString(cursor.getColumnIndex(Task.TITLE)),
@@ -91,10 +90,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         List<Task> tasks = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.query(Task.TABLE_NAME,
-                new String[]{Task.ID, Task.TITLE, Task.DESCRIPTION},
-                Task.STATE + "=?",
-                new String[]{String.valueOf(state)}, null, null, null, null);
+        String selectQuery = "SELECT * FROM " + Task.TABLE_NAME + " WHERE STATE=" + state;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()) {
             do {

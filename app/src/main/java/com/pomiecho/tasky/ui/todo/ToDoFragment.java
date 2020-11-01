@@ -1,5 +1,7 @@
 package com.pomiecho.tasky.ui.todo;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pomiecho.tasky.R;
 import com.pomiecho.tasky.SQLiteHandler;
 import com.pomiecho.tasky.adapters.ToDoAdapter;
+import com.pomiecho.tasky.interfaces.Communicator;
 import com.pomiecho.tasky.objects.Task;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,8 @@ public class ToDoFragment extends Fragment {
     private RecyclerView recyclerView;
     private ToDoAdapter adapter;
     private List<Task> taskList;
+
+    public Communicator communicator;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +54,18 @@ public class ToDoFragment extends Fragment {
 
         toDoModel.getText().observe(getViewLifecycleOwner(), s -> { });
         return root;
+    }
+
+    @Override
+    public void onAttach(@NotNull Context context) {
+        super.onAttach(context);
+        Activity navigationActivity = getActivity();
+        try {
+            if(context instanceof Activity)
+                communicator = (Communicator) navigationActivity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(navigationActivity.toString());
+        }
     }
 
     public void updateRecyclerView() {

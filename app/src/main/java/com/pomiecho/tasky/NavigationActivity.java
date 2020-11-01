@@ -13,9 +13,14 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.pomiecho.tasky.interfaces.Communicator;
+import com.pomiecho.tasky.objects.Task;
 import com.pomiecho.tasky.ui.task.TaskFragment;
+import com.pomiecho.tasky.ui.todo.ToDoFragment;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,9 +36,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class NavigationActivity extends AppCompatActivity {
+public class NavigationActivity extends AppCompatActivity implements Communicator {
 
     private AppBarConfiguration mAppBarConfiguration;
+    ToDoFragment toDoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,13 @@ public class NavigationActivity extends AppCompatActivity {
                 navController,
                 mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        toDoFragment = (ToDoFragment) fragmentManager.findFragmentById(R.id.nav_to_do);
+        if (toDoFragment == null) {
+            toDoFragment = new ToDoFragment();
+            fragmentManager.beginTransaction().add(toDoFragment, null).commit();
+        }
 
         setCurrentDateOnNavigationView(navigationView.getHeaderView(0),
                 getCurrentDay(),
@@ -111,14 +124,20 @@ public class NavigationActivity extends AppCompatActivity {
                 TextInputLayout taskTitle =  findViewById(R.id.frag_task_title);
                 TextInputLayout taskDesc = findViewById(R.id.frag_task_desc);
                 if(TextUtils.isEmpty(taskTitle.getEditText().getText())
-                || TextUtils.isEmpty(taskDesc.getEditText().getText())) {
+                    || TextUtils.isEmpty(taskDesc.getEditText().getText())) {
                     Toast.makeText(getApplicationContext(),
                             "Task title and description mustn't be empty",Toast.LENGTH_SHORT).show();
                     break;
                 }
+                createTask(new Task(taskTitle.getEditText().getText().toString(), taskDesc.getEditText().getText().toString()));
                 Navigation.findNavController(v).navigate(R.id.action_nav_task_to_nav_to_do);
                 break;
             }
         }
+    }
+
+    @Override
+    public void createTask(Task task) {
+        toDoFragment.addNewTask(task);
     }
 }
