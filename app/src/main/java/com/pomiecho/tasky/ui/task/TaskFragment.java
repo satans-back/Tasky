@@ -29,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 public class TaskFragment extends Fragment {
 
     private Task task;
-    private TaskModel taskModel;
 
     private TextInputLayout taskTitleText;
     private TextInputLayout taskDescriptionText;
@@ -48,7 +47,7 @@ public class TaskFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        taskModel = new ViewModelProvider(this).get(TaskModel.class);
+        TaskModel taskModel = new ViewModelProvider(this).get(TaskModel.class);
     }
 
     public void buttonClicked(@NotNull View v) { }

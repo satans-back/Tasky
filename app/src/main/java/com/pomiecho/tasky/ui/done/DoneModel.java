@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 public class DoneModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private final MutableLiveData<String> mText;
 
     public DoneModel() {
         mText = new MutableLiveData<>();

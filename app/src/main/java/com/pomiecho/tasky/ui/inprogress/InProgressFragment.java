@@ -30,8 +30,6 @@ import java.util.List;
 public class InProgressFragment extends Fragment {
 
     private SQLiteHandler db;
-    private InProgressModel inProgressModel;
-    private RecyclerView recyclerView;
     private InProgressAdapter adapter;
     private List<Task> taskList;
 
@@ -40,11 +38,10 @@ public class InProgressFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        inProgressModel =
-                new ViewModelProvider(this).get(InProgressModel.class);
+        InProgressModel inProgressModel = new ViewModelProvider(this).get(InProgressModel.class);
         View root = inflater.inflate(R.layout.fragment_in_progress, container, false);
         db = new SQLiteHandler(getActivity());
-        recyclerView = root.findViewById(R.id.recycler_in_progress);
+        RecyclerView recyclerView = root.findViewById(R.id.recycler_in_progress);
         taskList = new ArrayList<>();
 
         adapter = new InProgressAdapter(getActivity(), taskList, new CardClickListener() {

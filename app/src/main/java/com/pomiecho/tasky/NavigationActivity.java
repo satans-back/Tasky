@@ -1,5 +1,6 @@
 package com.pomiecho.tasky;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -126,10 +127,12 @@ public class NavigationActivity extends AppCompatActivity implements Communicato
 
         View currentFocusedView = activity.getCurrentFocus();
         if (currentFocusedView != null) {
+            assert inputManager != null;
             inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void buttonClicked(@NotNull View v) {
         switch(v.getId()) {
             case R.id.frag_cancel_button:

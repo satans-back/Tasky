@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 public class ToDoModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private final MutableLiveData<String> mText;
 
     public ToDoModel() {
         mText = new MutableLiveData<>();

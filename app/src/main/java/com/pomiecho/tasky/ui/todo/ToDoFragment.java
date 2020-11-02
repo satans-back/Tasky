@@ -30,8 +30,6 @@ import java.util.List;
 public class ToDoFragment extends Fragment {
 
     public SQLiteHandler db;
-    private ToDoModel toDoModel;
-    private RecyclerView recyclerView;
     private ToDoAdapter adapter;
     private List<Task> taskList;
 
@@ -40,10 +38,10 @@ public class ToDoFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        toDoModel = new ViewModelProvider(this).get(ToDoModel.class);
+        ToDoModel toDoModel = new ViewModelProvider(this).get(ToDoModel.class);
         View root = inflater.inflate(R.layout.fragment_to_do, container, false);
         db = new SQLiteHandler(getActivity());
-        recyclerView = root.findViewById(R.id.recycler_to_do);
+        RecyclerView recyclerView = root.findViewById(R.id.recycler_to_do);
         taskList = new ArrayList<>();
 
         adapter = new ToDoAdapter(getActivity(), taskList, new CardClickListener() {

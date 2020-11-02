@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 public class InProgressModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private final MutableLiveData<String> mText;
 
     public InProgressModel() {
         mText = new MutableLiveData<>();

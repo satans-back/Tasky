@@ -31,8 +31,6 @@ import java.util.List;
 public class DoneFragment extends Fragment {
 
     private SQLiteHandler db;
-    private DoneModel doneModel;
-    private RecyclerView recyclerView;
     private DoneAdapter adapter;
     private List<Task> taskList;
 
@@ -41,12 +39,12 @@ public class DoneFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        doneModel = new ViewModelProvider(this).get(DoneModel.class);
+        DoneModel doneModel = new ViewModelProvider(this).get(DoneModel.class);
         new ViewModelProvider(this).get(DoneModel.class);
         View root = inflater.inflate(R.layout.fragment_done, container, false);
 
         db = new SQLiteHandler(getActivity());
-        recyclerView = root.findViewById(R.id.recycler_done);
+        RecyclerView recyclerView = root.findViewById(R.id.recycler_done);
         taskList = new ArrayList<>();
 
         adapter = new DoneAdapter(getActivity(), taskList, new CardClickListener() {
@@ -80,9 +78,7 @@ public class DoneFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        for(Task task : db.getTasks(3)) {
-            taskList.add(task);
-        }
+        taskList.addAll(db.getTasks(3));
 
         updateRecyclerView();
 
