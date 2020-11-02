@@ -90,7 +90,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         List<Task> tasks = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT * FROM " + Task.TABLE_NAME + " WHERE STATE=" + state;
+        String selectQuery = "SELECT * FROM " + Task.TABLE_NAME + " WHERE STATE=" + state + " ORDER BY " + Task.ID + " DESC";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 

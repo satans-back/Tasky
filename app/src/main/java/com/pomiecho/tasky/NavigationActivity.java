@@ -15,6 +15,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pomiecho.tasky.interfaces.Communicator;
 import com.pomiecho.tasky.objects.Task;
+import com.pomiecho.tasky.ui.done.DoneFragment;
+import com.pomiecho.tasky.ui.inprogress.InProgressFragment;
 import com.pomiecho.tasky.ui.task.TaskFragment;
 import com.pomiecho.tasky.ui.todo.ToDoFragment;
 
@@ -39,7 +41,9 @@ import java.util.Locale;
 public class NavigationActivity extends AppCompatActivity implements Communicator {
 
     private AppBarConfiguration mAppBarConfiguration;
-    ToDoFragment toDoFragment;
+    private ToDoFragment toDoFragment;
+    private InProgressFragment inProgressFragment;
+    private DoneFragment doneFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +70,23 @@ public class NavigationActivity extends AppCompatActivity implements Communicato
         NavigationUI.setupWithNavController(navigationView, navController);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+
         toDoFragment = (ToDoFragment) fragmentManager.findFragmentById(R.id.nav_to_do);
         if (toDoFragment == null) {
             toDoFragment = new ToDoFragment();
             fragmentManager.beginTransaction().add(toDoFragment, null).commit();
+        }
+
+        inProgressFragment = (InProgressFragment) fragmentManager.findFragmentById(R.id.nav_in_progress);
+        if (inProgressFragment == null) {
+            inProgressFragment = new InProgressFragment();
+            fragmentManager.beginTransaction().add(inProgressFragment, null).commit();
+        }
+
+        doneFragment = (DoneFragment) fragmentManager.findFragmentById(R.id.nav_done);
+        if (doneFragment == null) {
+            doneFragment = new DoneFragment();
+            fragmentManager.beginTransaction().add(doneFragment, null).commit();
         }
 
         setCurrentDateOnNavigationView(navigationView.getHeaderView(0),
@@ -140,4 +157,16 @@ public class NavigationActivity extends AppCompatActivity implements Communicato
     public void createTask(Task task) {
         toDoFragment.addNewTask(task);
     }
+
+    @Override
+    public void setTaskToDo(Task task) { toDoFragment.addToDoTask(task); }
+
+    @Override
+    public void setTaskInProgress(Task task) { inProgressFragment.addInProgressTask(task); }
+
+    @Override
+    public void setTaskDone(Task task) { doneFragment.addDoneTask(task); }
+
+    @Override
+    public void deleteTask(Task task) { }
 }
