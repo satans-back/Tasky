@@ -22,7 +22,8 @@ It has been created with Material Design official standards and library has been
 	  testImplementation 'junit:junit:4.+'  
 	  androidTestImplementation 'androidx.test.ext:junit:1.1.2'  
 	  androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-	  }` 	
+	  }`
+- API: Android API 29
 
 ## Architecture
 
@@ -38,3 +39,9 @@ It's been created with Navigation Drawer activity which holds four fragments:
 I've also learned how to create interfaces in Java for fragments to interact with each other.
 
 ## Screenshots
+
+![](https://github.com/satans-back/Tasky/blob/master/img/tasky.png)
+![](https://github.com/satans-back/Tasky/blob/master/img/tD.png)
+![](https://github.com/satans-back/Tasky/blob/master/img/inP.png)
+![](https://github.com/satans-back/Tasky/blob/master/img/nav.png)
+![](https://github.com/satans-back/Tasky/blob/master/img/cT.png)
